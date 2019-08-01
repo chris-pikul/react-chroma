@@ -1,0 +1,26 @@
+@import 'colors.scss';
+@import 'fonts.scss';
+
+.c_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    padding: 0.5rem 1rem;
+
+    background: var(--clr-primary);
+    color: var(--clr-secondary);
+
+    .c_header-title {
+        font-family: $RALEWAY-LIGHT;
+        font-size: 1.75rem;
+        line-height: 1.25em;
+        color: $WHITE;
+    }
+}

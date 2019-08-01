@@ -85,7 +85,7 @@ const development = {
             'node_modules'
         ],
         alias: {
-            Basics: Path.resolve(__dirname, 'chroma'),
+            'react-chroma': Path.resolve(__dirname, 'chroma'),
             Styles: Path.resolve(__dirname, 'styles'),
         }
     },

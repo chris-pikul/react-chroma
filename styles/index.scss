@@ -5,6 +5,18 @@
 :root {
     --clr-bg: #{$WHITE};
     --clr-fg: #{$BLACK};
+
+    --clr-primary: #{$PURPLE};
+    --clr-primary-p2: #{$PURPLE_p2};
+    --clr-primary-p1: #{$PURPLE_p1};
+    --clr-primary-m1: #{$PURPLE_m1};
+    --clr-primary-m2: #{$PURPLE_m2};
+
+    --clr-secondary: #{$GRAY};
+    --clr-secondary-p2: #{$GRAY_p2};
+    --clr-secondary-p1: #{$GRAY_p1};
+    --clr-secondary-m1: #{$GRAY_m1};
+    --clr-secondary-m2: #{$GRAY_m2};
 }
 
 @media (prefers-color-scheme: light) {
@@ -33,4 +45,5 @@ body * {
     box-sizing: border-box;
 }
 
+@import './app/index.scss';
 @import './core/buttons.scss';

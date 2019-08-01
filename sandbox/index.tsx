@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './sandbox.scss';
+import Sandbox from './sandbox';
+
 import 'Styles/index.scss';
+import './sandbox.scss';
 ReactDOM.render(
-    <h1>Hello World</h1>,
+    <Sandbox />,
     document.getElementById('root')
 );

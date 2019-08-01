@@ -3,12 +3,12 @@ import { StringMap, EventCallback, NoOp } from '../types';
 import { CoreClasses, CompileClasses, ClassesFunction, ClassesProps } from '../classes';
 
 export const ButtonClasses:StringMap = {
-    BUTTON: 'b_button',
+    BUTTON: 'c_button',
 
-    PILL: 'b_button_pill',
-    SHARP: 'b_button_sharp',
-    OUTLINE: 'b_button_outline',
-    CIRCLE: 'b_button_circle',
+    PILL: 'c_button_pill',
+    SHARP: 'c_button_sharp',
+    OUTLINE: 'c_button_outline',
+    CIRCLE: 'c_button_circle',
 };
 
 export enum ButtonShape {

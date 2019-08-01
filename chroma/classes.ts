@@ -6,10 +6,10 @@ import { ButtonClasses } from './core/buttons';
  * Common class names that apply to most (all) components
  */
 export const CoreClasses:StringMap = {
-    'ACTIVE': 'b_active',
-    'FOCUSED': 'b_focused',
-    'DISABLED': 'b_disabled',
-    'LOADING': 'b_loading',
+    'ACTIVE': 'c_active',
+    'FOCUSED': 'c_focused',
+    'DISABLED': 'c_disabled',
+    'LOADING': 'c_loading',
 };
 
 /**
