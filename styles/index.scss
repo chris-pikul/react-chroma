@@ -1,0 +1,36 @@
+@import './reset.scss';
+@import './colors.scss';
+@import './fonts.scss';
+
+:root {
+    --clr-bg: #{$WHITE};
+    --clr-fg: #{$BLACK};
+}
+
+@media (prefers-color-scheme: light) {
+    html { content: 'light'; }
+}
+/*
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-bg: #{$BLACK};
+        --clr-fg: #{$WHITE};
+    }
+
+    html { content: 'dark'; }
+}
+*/
+html, body {
+    font-family: $RALEWAY;
+    font-size: 12pt;
+    line-height: 1.25em;
+
+    background: var(--clr-bg);
+    color: var(--clr-fg);
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+@import './core/buttons.scss';

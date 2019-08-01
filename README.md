@@ -1,2 +1,2 @@
-# react-basics
-Basic UI structure without opinionated design language applied
+# react-chroma
+Basic UI structure with loosely opinionated design language applied

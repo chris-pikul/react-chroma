@@ -1,0 +1,135 @@
+@import '../colors.scss';
+@import '../fonts.scss';
+
+.b_button {
+    display: inline-block;
+    outline: none;
+
+    position: relative;
+    padding: 0.25em 1em;
+    margin: 0 0.25em;
+    min-height: 1.5em;
+
+    background: $GRAY_WHITE_FG;
+    border: 1px solid transparent;
+    border-radius: 0.25em;
+    color: var(--clr-bg);
+    font: 1em/1.25em $RALEWAY;
+
+    box-shadow: 0.125em 0.125em 0.25em rgba(0,0,0, 0.2);
+    transform: translateY(0);
+    cursor: pointer;
+
+    transition: background 0.1s ease, 
+        box-shadow 0.25s linear, 
+        transform 0.25s linear;
+
+    &.b_loading {
+        cursor: wait;
+
+        &::before {
+            content: ' ';
+            display: block;
+
+            position: absolute;
+            top: -0.3em;
+            right: -0.3em;
+            bottom: -0.3em;
+            left: -0.3em;
+            z-index: -1;
+
+            background: transparent;
+            border: 2px dashed $GRAY;
+            border-radius: 0.25em;
+
+            @keyframes pulse {
+                0% {
+                    border-color: $GRAY_p2;
+                }
+                100% {
+                    border-color: $GRAY;
+                }
+            }
+            animation: pulse 1s ease-in-out 0s infinite alternate;
+        }
+    }
+
+    
+    &.b_focused, &:focus {
+        border: 1px solid $GRAY_WHITE_FG_SMALL;
+    }
+
+    &:hover:not(.b_loading) {
+        background: $GRAY;
+        transform: translateY(-0.075em);
+        box-shadow: 0.075em 0.25em 0.5em rgba(0,0,0, 0.4);
+    }
+
+    &:active {
+        background: $GRAY_WHITE_FG_SMALL;
+        transform: translateY(0);
+        box-shadow: 0 0 0.25em rgba(0,0,0, 0.2) inset;
+        transition: background 0.1s ease, 
+            box-shadow 0.1s linear, 
+            transform 0.1s linear;
+    }
+
+    &.b_disabled:not(.b_loading), &:disabled:not(.b_loading) {
+        background: $GRAY_p2;
+        box-shadow: none;
+        transform: translateY(0);
+        cursor: not-allowed;
+    }
+
+    &.b_button_pill {
+        border-radius: 1em;
+
+        &::before { border-radius: 1.3em; }
+    }
+    &.b_button_sharp {
+        border-radius: 0;
+    }
+
+    &.b_button_outline {
+        background: var(--clr-bg);
+        color: $GRAY_WHITE_FG;
+        border: 2px solid $GRAY_WHITE_FG;
+        box-shadow: none;
+
+        margin: -1px 0.25em;
+        margin: -1px calc(0.25em - 1px);
+
+        &.b_focused, &:focus {
+            border: 3px solid $GRAY_WHITE_FG;
+            margin: -2px 0.25em;
+            margin: -2px calc(0.25em - 2px);
+        }
+
+        &:hover:not(.b_loading) {
+            background: $GRAY_WHITE_FG;
+            border-color: $GRAY_WHITE_FG;
+            color: var(--clr-bg);
+            box-shadow: 0.075em 0.25em 0.5em rgba(0,0,0, 0.4);
+        }
+
+        &:active {
+            background: $GRAY_WHITE_FG_SMALL;
+            border-color: $GRAY_WHITE_FG_SMALL;
+            transform: translateY(0);
+            box-shadow: 0 0 0.25em rgba(0,0,0, 0.2) inset;
+            transition: background 0.1s ease, 
+                box-shadow 0.1s linear, 
+                transform 0.1s linear;
+        }
+
+        &.b_disabled:not(.b_loading), &:disabled:not(.b_loading) {
+            background: var(--clr-bg);
+            color: $GRAY;
+            border: 2px solid $GRAY_p2;
+            box-shadow: none;
+
+            margin: -1px 0.25em;
+            margin: -1px calc(0.25em - 1px);
+        }
+    }
+}
