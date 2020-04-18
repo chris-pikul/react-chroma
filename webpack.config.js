@@ -46,7 +46,7 @@ const development = {
             {
                 test: /\.s?css$/,
                 use: [
-                    { loader: 'style-loader', options: { sourceMap: true } },
+                    { loader: 'style-loader' },
                     { loader: 'css-loader', options: { sourceMap: true, } },
                     { loader: 'sass-loader', options: { sourceMap: true, } },
                 ]
