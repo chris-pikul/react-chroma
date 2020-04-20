@@ -23,7 +23,16 @@ async function cleanDist(cb) {
     cb(); //DONE
 }
 
-const clean = series(cleanBuild, cleanDist);
+async function cleanTypes(cb) {
+    console.log( chalk.bgYellow.black('Cleaning types directory') );
+    let paths = await del([ './types/**' ]);
+    logResults(paths);
+
+    cb(); //DONE
+}
+
+const clean = series(cleanBuild, cleanDist, cleanTypes);
 exports['clean'] = clean;
 exports['clean:build'] = cleanBuild;
 exports['clean:dist'] = cleanDist;
+exports['clean:types'] = cleanTypes;
