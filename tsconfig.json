@@ -18,7 +18,8 @@
         "noUnusedParameters": true,
         "baseUrl": "./src/",
         "allowSyntheticDefaultImports": true,
-        "jsx": "react",
+        "jsx": "react-native",
+        "moduleResolution": "node"
     },
     "include": [
         "./src/**/*"

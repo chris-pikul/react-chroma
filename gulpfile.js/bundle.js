@@ -9,7 +9,7 @@ const Package = require('../package.json');
 async function bundleLib(cb) {
     //General input options
     const inputOptions = {
-        input: './build/index.js',
+        input: './build/index.jsx',
     };
 
     //Format specific output options, this is iterated next to build a dynamic map
@@ -42,11 +42,11 @@ async function bundleLib(cb) {
 
 async function bundleDist(cb) {
     console.log(chalk.bgGreen.black('Bundling standard distributables'));
-    await src('./lib/*.js')
+    await src(['./lib/*.js', './lib/*.jsx'])
         .pipe( dest('./dist') );
 
     console.log(chalk.bgGreen.black('Bundling minified distributables'));
-    await src('./lib/*.js')
+    await src(['./lib/*.js', './lib/*.jsx'])
         .pipe( rename({ suffix: '.min'}) )
         .pipe( uglify({
             mangle: true,
