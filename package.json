@@ -14,7 +14,8 @@
     "clean": "gulp clean",
     "build": "gulp build",
     "bundle": "gulp bundle",
-    "package": "gulp"
+    "package": "gulp",
+    "develop": "gulp develop"
   },
   "repository": {
     "type": "git",
