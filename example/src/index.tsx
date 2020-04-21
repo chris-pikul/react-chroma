@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Example } from 'react-chroma';
+import Storyboard from './Storyboard';
 
 ReactDOM.render(
-    <Example />,
+    <Storyboard />,
     document.getElementById('app')
 );
