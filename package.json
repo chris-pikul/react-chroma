@@ -2,14 +2,9 @@
   "name": "react-chroma",
   "version": "1.0.0",
   "description": "Basic react UI framework with loosely opinionated design language applied",
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "jsnext:main": "build/index.js",
+  "main": "lib/index.js",
   "browser": "dist/react-chroma.es.min.js",
-  "types": "types/index.d.ts",
-  "exports": {
-    "./": "./build/"
-  },
+  "types": "lib/index.d.ts",
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp build",
@@ -56,9 +51,9 @@
     "react": "^16.13.1"
   },
   "files": [
-    "build",
+    "build/**/*",
     "dist",
     "lib",
-    "types"
+    "types/**/*"
   ]
 }

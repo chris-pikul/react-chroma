@@ -1,4 +1,4 @@
-const { src, dest } = require('gulp');
+const { dest } = require('gulp');
 const path = require('path');
 const chalk = require('chalk');
 const merge2 = require('merge2');
@@ -11,21 +11,9 @@ function build() {
         .pipe( TSProject() );
 
     return merge2([
-        results.js.pipe( dest('build') ),
-        results.dts.pipe( dest('types') ),
+        results.js.pipe( dest('lib') ),
+        results.dts.pipe( dest('lib') ),
     ]);
-    /*
-    const results = await TSProject.src()
-        .pipe( TSProject() );
-
-    console.log( chalk.bgGreen.black('Writing output files...') );
-    const stream = merge2(
-        results.js.pipe( dest('build') ),
-        results.dts.pipe( dest('types') ),
-    );
-    stream.on('queueDrain', cb);
-    stream.end();
-    */
 }
 exports['build'] = build;
 
@@ -35,7 +23,7 @@ async function buildTypes(cb) {
 
     if(results.dts) {
         console.log( chalk.bgGreen.black('Writing DTS files') );
-        await results.dts.pipe( dest('types') );
+        await results.dts.pipe( dest('lib') );
     }
 
     cb();
