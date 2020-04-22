@@ -9,6 +9,7 @@
         "allowJs": true,
         "checkJs": false,
         "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "preserveSymlinks": true
     }
 }

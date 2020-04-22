@@ -53,4 +53,4 @@ async function bundle(cb) {
     cb(); //DONE
 }
 
-exports['bundle'] = bundle;
+exports['bundle:ts'] = bundle;

@@ -1,4 +1,3 @@
-const { series } = require('gulp');
 const del = require('del');
 const chalk = require('chalk');
 
@@ -9,7 +8,7 @@ function logResults(paths) {
 
 async function clean(cb) {
     console.log( chalk.bgYellow.black('Cleaning directories') );
-    let paths = await del([ './lib/**', './dist/**' ]);
+    let paths = await del([ './lib/**', './dist/**', './styles/**' ]);
     logResults(paths);
 
     cb(); //DONE

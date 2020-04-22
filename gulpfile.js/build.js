@@ -1,4 +1,4 @@
-const { dest } = require('gulp');
+const { dest, watch } = require('gulp');
 const path = require('path');
 const chalk = require('chalk');
 const merge2 = require('merge2');
@@ -15,7 +15,6 @@ function build() {
         results.dts.pipe( dest('lib') ),
     ]);
 }
-exports['build'] = build;
 
 async function buildTypes(cb) {
     const results = await TSProject.src()
@@ -29,4 +28,9 @@ async function buildTypes(cb) {
     cb();
     return;
 }
+
+const watchTS = () => watch(['./src/**/*.ts', './src/**/*.tsx'], build);
+
+exports['build:ts'] = build;
 exports['build:types'] = buildTypes;
+exports['watch:ts'] = watchTS;
