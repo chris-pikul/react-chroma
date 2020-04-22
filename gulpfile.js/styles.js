@@ -19,7 +19,7 @@ function bundleStyles() {
         .pipe( dest('./dist') );
 }
 
-const watchStyles = () => watch('./src/**/*.css', series(bundleStyles, bundleStyles));
+const watchStyles = () => watch('./src/**/*.scss', series(buildStyles, bundleStyles));
 
 exports['build:styles'] = buildStyles;
 exports['bundle:styles'] = bundleStyles;

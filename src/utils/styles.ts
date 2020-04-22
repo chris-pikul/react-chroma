@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 
 export type StyleFunction = () => (CSSProperties | CSSProperties[] | string);
-export type StyleResolver = (CSSProperties | CSSProperties[] | StyleFunction | string);
+export type StyleResolver = (CSSProperties | CSSProperties[] | StyleFunction | {[key:string]:number|string} | string);
 
 /**
  * Compiles the given inputs into a single CSSProperties object for

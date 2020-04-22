@@ -27,6 +27,8 @@ export default () => {
     return <>
         <h1 className={compileClasses(classes)} style={compileStyles(preStyles)}>Storyboard</h1>
 
-        <Flex id='row1'><span>Row</span><span>Objects</span><span>Here</span></Flex>
+        <Flex.Col justify='space-between' align='center' flexGrow={1} flexShrink={0} flexBasis='auto' >
+            <span>Row</span><span>Objects</span><span>Here</span>
+        </Flex.Col>
     </>
 };

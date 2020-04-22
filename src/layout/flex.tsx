@@ -1,4 +1,4 @@
-import React, { ReactElement, HTMLAttributes } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ClassResolver, compileClasses } from '../utils/classes';
@@ -7,62 +7,126 @@ import { StyleResolver, compileStyles } from '../utils/styles';
 export enum FlexDirection {
     ROW = 'ROW',
     COLUMN = 'COLUMN',
+    ROW_REVERSE = 'ROW_REVERSE',
+    COLUMN_REVERSE = 'COLUMN_REVERSE',
 };
 
-export interface FlexProps extends HTMLAttributes<any> {
-    children?   :React.ReactElement<any,any>[],
+export enum FlexWrap {
+    WRAP = 'wrap',
+    NO_WRAP = 'no-wrap',
+    WRAP_REVERSE = 'wrap-reverse',
+};
+
+export enum FlexJustify {
+    START = 'START',
+    END = 'END',
+    SPACE_BETWEEN = 'SPACE_BETWEEN',
+    SPACE_AROUND = 'SPACE_AROUND',
+    SPACE_EVENLY = 'SPACE_EVENLY',
+};
+
+export enum FlexAlign {
+    START = 'START',
+    END = 'END',
+    CENTER = 'CENTER',
+    STRETCH = 'STRETCH',
+    BASELINE = 'BASELINE',
+};
+
+export enum FlexContent {
+    START = 'START',
+    END = 'END',
+    CENTER = 'CENTER',
+    STRETCH = 'STRETCH',
+    SPACE_BETWEEN = 'SPACE_BETWEEN',
+    SPACE_AROUND = 'SPACE_AROUND',
+};
+
+export interface FlexProps {
     classes?    :ClassResolver,
     styles?     :StyleResolver,
-    direction?  :FlexDirection,
+
+    flex?       :number|string,
+    flexGrow?   :number|string,
+    flexShrink? :number|string,
+    flexBasis?  :number|string,
+
+    direction?  :FlexDirection|string,
+    wrap?       :FlexWrap|string,
+    justify?    :FlexJustify|string,
+    align?      :FlexAlign|string,
+    content?    :FlexContent|string,
 };
 
-const rowCustomProps = [
-    'classes', 'styles', 'props',
-    'direction',
-];
+//type StringMap = { [key:string]: string };
 
-function Flex(props:FlexProps):ReactElement<FlexProps, any> {
-    const classes = compileClasses(Flex.RootClass, {
-        'c-row_row': props.direction === Flex.Direction.ROW,
-        'c-row_col': props.direction === Flex.Direction.COLUMN,
-    }, props.classes || {});
-    const styles = compileStyles(props.styles || {});
+export default class Flex extends React.PureComponent<FlexProps, any> {
+    static propTypes = {
+        classes: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.array,
+            PropTypes.func,
+            PropTypes.string,
+        ]),
+        styles: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.array,
+            PropTypes.func,
+            PropTypes.string,
+        ]),
+    
+        direction: PropTypes.oneOf(['row', 'column', 'row-reverse', 'column-reverse']),
+        wrap: PropTypes.oneOf(['wrap','no-wrap','wrap-reverse']),
+        justify: PropTypes.oneOf(['flex-start', 'flex-end', 'space-between', 'space-around', 'space-evenly']),
+        align: PropTypes.oneOf(['flex-start', 'flex-end', 'stretch', 'center']),
+        content: PropTypes.oneOf(['flex-start', 'flex-end', 'stretch', 'center', 'space-between', 'space-around']),
+    };
 
-    const htmlProps:({[key:string]:any}) = Object.assign({}, props);
-    rowCustomProps.forEach(prop => { delete htmlProps[prop]; });
+    static defaultProps = {
+        classes: {},
+        styles: {},
+    
+        flexGrow: 0,
+        flexShrink: 1,
+        flexBasis: 'auto',
+    
+        direction: 'column',
+        wrap: 'no-wrap',
+        justify: 'flex-start',
+        align: 'flex-start',
+        content: 'flex-start',
+    };
 
-    return <div {...htmlProps} className={classes} style={styles}>{ props.children }</div>
+    render() {
+        const { 
+            classes, styles,
+            flex, flexGrow, flexShrink, flexBasis,
+            direction, wrap, justify, align, content,
+        } = this.props;
+
+        //Compute the class names
+        const classNames = compileClasses('c-flex', classes || {});
+
+        //Compute the styles
+        const style = compileStyles({
+            flex: (flex || `${flexGrow} ${flexShrink} ${flexBasis}`),
+
+            display: 'flex',
+            flexDirection: (direction || 'column'),
+            flexWrap: (wrap || 'no-wrap'),
+            justifyContent: (justify || 'flex-start'),
+            alignItems: (align || 'flex-start'),
+            alignContent: (content || 'flex-start'),
+
+        }, styles || {});
+
+        //Pull out the custom properties and just use the remaining
+        const htmlProps:({[key:string]:any}) = Object.assign({}, this.props);
+        Object.keys(Flex.defaultProps).forEach(prop => { delete htmlProps[prop]; });
+
+        return <div {...htmlProps} className={classNames} style={style}>{ this.props.children }</div>
+    }
+
+    static Row:React.FunctionComponent<FlexProps> = (props:FlexProps) => <Flex {...props} direction='row' />;
+    static Col:React.FunctionComponent<FlexProps> = (props:FlexProps) => <Flex {...props} direction='column' />;
 }
-
-Flex.RootClass = 'c-row';
-
-
-Flex.Direction = {
-    ROW: 'ROW',
-    COLUMN: 'COLUMN',
-};
-
-Flex.propTypes = {
-    classes: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.array,
-        PropTypes.func,
-        PropTypes.string,
-    ]),
-    styles: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.array,
-        PropTypes.func,
-        PropTypes.string,
-    ]),
-    direction: PropTypes.oneOf(['ROW', 'COLUMN']),
-};
-
-Flex.defaultProps = {
-    classes: {},
-    styles: {},
-    props: {},
-    direction: 'ROW',
-};
-
-export default Flex;
