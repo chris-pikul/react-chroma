@@ -8,7 +8,7 @@ export type StyleResolver = (CSSProperties | CSSProperties[] | StyleFunction | s
  * use within the 'style' property of react components.
  * @param styles Input of style types to compile
  */
-export function compileStyles(styles:StyleResolver):CSSProperties {
+export function compileStyle(styles:StyleResolver):CSSProperties {
     let preComp:CSSProperties[] = [];
     if(typeof styles === 'function') {
         const res = styles();
@@ -20,7 +20,7 @@ export function compileStyles(styles:StyleResolver):CSSProperties {
             preComp.push( res );
         }
     } else if(Array.isArray(styles)) {
-        preComp = preComp.concat(...styles.map(s => compileStyles(s)));
+        preComp = preComp.concat(...styles.map(s => compileStyle(s)));
     } else if(typeof styles === 'string') {
         preComp.push( styleFromString(styles) );
     } else {
@@ -28,6 +28,16 @@ export function compileStyles(styles:StyleResolver):CSSProperties {
     }
 
     return Object.assign({}, ...preComp) as CSSProperties;
+}
+
+/**
+ * Compiles the given inputs into a single CSSProperties object.
+ * 
+ * @param styles Variable number of StyleResolver objects
+ */
+export function compileStyles( ...styles:StyleResolver[] ):CSSProperties {
+    const map = styles.map(s => compileStyle(s));
+    return Object.assign({}, ...map) as CSSProperties;
 }
 
 /**

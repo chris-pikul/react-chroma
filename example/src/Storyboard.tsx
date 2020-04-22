@@ -2,6 +2,10 @@ import React from 'react';
 
 import { compileClasses, style, compileStyles } from 'react-chroma';
 
+import {
+    Flex,
+} from 'react-chroma';
+
 export default () => {
     const classes = {
         'some': true,
@@ -22,5 +26,7 @@ export default () => {
 
     return <>
         <h1 className={compileClasses(classes)} style={compileStyles(preStyles)}>Storyboard</h1>
+
+        <Flex id='row1'><span>Row</span><span>Objects</span><span>Here</span></Flex>
     </>
 };

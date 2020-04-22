@@ -1,0 +1,5 @@
+.c-flex {
+  display: flex;
+  flex-direction: column; }
+  .c-flex.c-flex_row {
+    flex-direction: row; }
