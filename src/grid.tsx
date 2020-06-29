@@ -59,6 +59,11 @@ export interface GridProps {
     gridAlignSelf?          :GridAlignSelf,
 };
 
+export const GridCustomProps = [
+    'gridJustifyItems', 'gridJustifyContent', 'gridJustifySelf',
+    'gridAlignItems', 'gridAlignContent', 'gridAlignSelf',
+];
+
 export const GridPropTypes = {
     gridJustifyItems: PropTypes.oneOf(['start','end','center','stretch']),
     gridJustifyContent: PropTypes.oneOf(['start','end','center','stretch','space-around','space-between','space-evenly']),
@@ -78,6 +83,8 @@ export const GridDefaultProps:GridProps = {
 };
 
 export function compileGridStyles(props:any):StyleResolver {
+    if(typeof props !== 'object') throw new TypeError("compileGridStyles must be supplied with an object of properties");
+
     const {
         gridJustifyItems, gridJustifyContent, gridJustifySelf,
         gridAlignItems, gridAlignContent, gridAlignSelf,

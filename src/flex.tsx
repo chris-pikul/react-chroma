@@ -56,6 +56,11 @@ export interface FlexProps {
     flexAlignSelf?  :FlexAlign|string,
 };
 
+export const FlexCustomProps = [ 'flex', 'flexGrow', 'flexShrink', 'flexBasis',
+    'flexDirection', 'flexWrap', 'flexJustify', 'flexAlign', 'flexContent',
+    'flexOrder', 'flexAlignSelf',
+];
+
 export const FlexPropTypes = {
     flex: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
     flexGrow: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),

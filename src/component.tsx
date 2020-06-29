@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { ClassResolver, compileClasses } from './utils/classes';
 import { StyleResolver, compileStyles } from './utils/styles';
 
-import { FlexProps, FlexPropTypes, FlexDefaultProps, compileFlexStyles } from './flex';
-import { GridProps, GridPropTypes, GridDefaultProps, compileGridStyles } from './grid';
+import { FlexCustomProps } from './flex';
+import { GridCustomProps } from './grid';
 
 export enum DisplayProp {
     NONE = 'none',
@@ -19,12 +19,16 @@ export enum DisplayProp {
     FLOW_ROOT = 'flow-root',
 };
 
-export interface ComponentProps extends FlexProps, GridProps {
+export interface ComponentProps {
     tagName    :string|React.FunctionComponent,
     display    :DisplayProp|string,
     classes?    :ClassResolver,
     styles?     :StyleResolver,
 };
+
+export const ComponentCustomProps = [
+    'tagName', 'display', 'classes', 'styles',
+];
 
 export interface ComponentState {
 
@@ -45,9 +49,6 @@ export const ComponentPropTypes = {
         PropTypes.func,
         PropTypes.string,
     ]),
-
-    ...FlexPropTypes,
-    ...GridPropTypes,
 };
 
 export const ComponentDefaultProps:ComponentProps = {
@@ -56,14 +57,17 @@ export const ComponentDefaultProps:ComponentProps = {
 
     classes: {},
     styles: {},
-
-    ...FlexDefaultProps,
-    ...GridDefaultProps,
 };
 
 export type ComponentCustomRender = (props:any) => React.ReactNode;
 
 export class Component<PropType extends ComponentProps, StateType extends ComponentState> extends React.Component<ComponentProps, any> {
+    static propBlacklist = [ 
+        ...ComponentCustomProps,
+        ...FlexCustomProps,
+        ...GridCustomProps,,
+    ];
+
     static propTypes = { ...ComponentPropTypes };
 
     static defaultProps:ComponentProps = { ...ComponentDefaultProps };
@@ -85,7 +89,9 @@ export class Component<PropType extends ComponentProps, StateType extends Compon
 
         //Pull out the custom properties and just use the remaining
         const htmlProps:({[key:string]:any}) = Object.assign({}, this.props);
-        Object.keys(Component.defaultProps).forEach(prop => { delete htmlProps[prop]; });
+        Object.keys(htmlProps)
+            .filter(prop => (Component.propBlacklist.indexOf(prop as never) >= 0))
+            .forEach(prop => { delete htmlProps[prop]; });
 
         const compProps = {
             ...htmlProps,
@@ -107,12 +113,8 @@ export class Component<PropType extends ComponentProps, StateType extends Compon
     private getCompiledStyles():StyleResolver {
         const { display } = this.props;
 
-        const componentStyles = Object.assign({},
-            compileFlexStyles(this.props),
-            compileGridStyles(this.props),
-            {
-                display,
-            });
+        const componentStyles:any = {};
+        if(display !== ComponentDefaultProps.display) componentStyles.display = display;
 
         return compileStyles(this.styles, componentStyles, this.props.styles || {});
     }
