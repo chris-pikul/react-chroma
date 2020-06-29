@@ -10,7 +10,8 @@
     "build": "gulp build",
     "bundle": "gulp bundle",
     "package": "gulp",
-    "develop": "gulp develop"
+    "develop": "gulp develop",
+    "start": "gulp develop"
   },
   "repository": {
     "type": "git",

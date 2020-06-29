@@ -3,7 +3,7 @@ import React from 'react';
 import { compileClasses, style, compileStyles } from 'react-chroma';
 
 import {
-    Flex,
+    Panel,
 } from 'react-chroma';
 
 export default () => {
@@ -27,8 +27,7 @@ export default () => {
     return <>
         <h1 className={compileClasses(classes)} style={compileStyles(preStyles)}>Storyboard</h1>
 
-        <Flex.Col justify='space-between' align='center' flexGrow={1} flexShrink={0} flexBasis='auto' >
-            <span>Row</span><span>Objects</span><span>Here</span>
-        </Flex.Col>
+        <Panel>My Panel</Panel>
+        <Panel display='flex'>Flex Panel</Panel>
     </>
 };
